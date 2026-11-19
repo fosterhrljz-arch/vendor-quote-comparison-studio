@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="Compare vendor quotes, explore costs, and export your results. A private, offline quote comparison tool.">
+  <title>Vendor Quote Comparison Studio</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230071e3'/%3E%3Cpath d='M8 23v-6m8 6V11m8 12V6' stroke='white' stroke-width='4'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="core.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to comparison studio</a>
+  <header class="topbar">
+    <div class="brand"><svg aria-hidden="true" width="26" height="26" viewBox="0 0 26 26"><rect x="1" y="17" width="6" height="8" rx="1.5"/><rect x="10" y="10" width="6" height="15" rx="1.5"/><rect x="19" y="2" width="6" height="23" rx="1.5"/></svg><span>Quote Studio</span></div>
+    <span class="offline"><span aria-hidden="true"></span>Works offline</span>
+  </header>
+  <main id="main">
+    <div class="intro">
+      <div><h1>Clarity before you commit.</h1><p>Compare vendor quotes. Find the right fit for your budget.</p></div>
+      <button id="export" class="button export"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3v12m-4-4 4 4 4-4M5 16v4h14v-4"/></svg>Export CSV</button>
+    </div>
+    <noscript><p class="error-banner">Please enable JavaScript in your browser to calculate and compare quotes.</p></noscript>
+    <section class="scenario" aria-label="Comparison scenario">
+      <div class="scenario-field"><label for="people">People</label><input id="people" type="number" min="0" max="100000" step="1" value="100" required aria-describedby="scenario-error"></div>
+      <div class="scenario-field"><label for="months">Contract length</label><div class="input-unit"><input id="months" type="number" min="1" max="120" step="1" value="12" required aria-describedby="scenario-error"><span>months</span></div></div>
+      <div class="scenario-field"><label for="billing">Per-person billing</label><select id="billing"><option value="once">Once</option><option value="monthly">Per month</option></select></div>
+    </section>
+    <p id="scenario-error" class="error-message" hidden></p>
+    <div class="workspace">
+      <section class="panel vendors-panel" aria-labelledby="vendors-heading">
+        <div class="section-heading"><h2 id="vendors-heading">Your vendors</h2><button class="text-button" id="add"><span aria-hidden="true">＋</span> Add vendor</button></div>
+        <div id="vendors"></div>
+        <div class="vendor-actions"><button class="text-button reset" id="reset"><span aria-hidden="true">↺</span> Reset examples</button><span id="vendor-count"></span></div>
+        <p id="save-status" class="save-status" role="status"></p>
+        <div id="undo-message" class="undo-message" hidden><span>Vendor removed.</span><button id="undo" class="text-button">Undo</button></div>
+      </section>
+      <section class="panel results-panel" aria-labelledby="comparison-heading">
+        <div class="section-heading"><h2 id="comparison-heading">The comparison</h2><span class="unit-label">USD</span></div>
+        <div id="results"></div>
+      </section>
+    </div>
+    <footer><p id="formula">Total = setup + monthly × months + per-person × people</p><p>USD · Taxes and discounts not included</p></footer>
+    <p class="sample-note">Start with fictional sample quotes, then make them your own. Your data stays in this browser.</p>
+    <p class="sr-only" id="announcement" role="status" aria-live="polite" aria-atomic="true"></p>
+  </main>
+  <dialog id="reset-dialog" aria-labelledby="reset-heading"><form method="dialog"><h2 id="reset-heading">Reset to sample quotes?</h2><p>This replaces your vendors and scenario with the original examples.</p><div class="dialog-actions"><button class="button" value="cancel" autofocus>Keep my quotes</button><button class="button primary" value="reset">Reset examples</button></div></form></dialog>
+</body>
+</html>
